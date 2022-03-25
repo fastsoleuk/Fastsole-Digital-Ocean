@@ -70,6 +70,7 @@ const BrandList = ({ state, libraries, actions }) => {
                 width="170px"
                 height="100px"
                 src={item.image}
+                alt="image"
               />
             </Box>
           </Link>

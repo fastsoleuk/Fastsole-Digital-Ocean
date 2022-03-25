@@ -151,6 +151,7 @@ const ComingSoonSlider = ({ deviceType, actions, libraries, state }) => {
                       className="container-img"
                     >
                       <img
+                      alt="image"
                         className="cont-img-div"
                         borderRadius="lg"
                         width="130px"
