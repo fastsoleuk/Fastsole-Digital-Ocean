@@ -71,6 +71,8 @@ const BrandList = ({ state, libraries, actions }) => {
                 height="100px"
                 src={item.image}
                 alt="image"
+                loading="lazy"
+                decoding="async"
               />
             </Box>
           </Link>
