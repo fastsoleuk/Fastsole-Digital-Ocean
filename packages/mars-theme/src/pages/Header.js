@@ -285,7 +285,6 @@ const Header = ({ state, libraries, actions }) => {
                 height="30px !important"
                 alt={state.frontity.company_name + " logo"}
                 loading="lazy"
-                decoding="async"
               />
             </Link>
           </Text>
