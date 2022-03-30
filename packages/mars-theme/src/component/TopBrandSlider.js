@@ -109,7 +109,6 @@ function TopBrandSlider({ deviceType, actions, libraries, state }) {
                         srcSet={item.srcset}
                         alt={item.title}
                         loading="lazy"
-                        decoding="async"
                       />
                       <Heading
                         ml={1}
