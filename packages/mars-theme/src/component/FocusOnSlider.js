@@ -177,7 +177,7 @@ const FocusOnSlider = ({ deviceType, actions, libraries, state }) => {
                       alt={item.post_title}
                       srcSet={item.featured_image.srcset}
                       loading="lazy"
-                      decoding="async"
+                      // decoding="async"
                     />
                   </Box>
                 </Link>
