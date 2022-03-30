@@ -64,8 +64,6 @@ const ComingSoonSlider = ({ deviceType, actions, libraries, state }) => {
       {!state.onFocus.isLoading
         ? prodData &&
         prodData.slice(0, 8).map((item) => {
-          const mainProductImage = item.featured_image.medium
-          const mainImage = await getBase64ForImage(mainProductImage.src)
           if (item.sneaker_status === "instock") {
             var status = (
               <Text color="#3EB75E" fontSize="xs" lineHeight="22px">
@@ -159,7 +157,7 @@ const ComingSoonSlider = ({ deviceType, actions, libraries, state }) => {
                         width="130px"
                         height="78px"
                         mx="auto"
-                        src={mainImage}
+                        src={item.featured_image.medium}
                         lineHeight="22px"
                         transform="rotate3d(1, 1, 1,
                       324deg)"
