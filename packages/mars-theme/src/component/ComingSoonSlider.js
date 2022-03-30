@@ -151,7 +151,6 @@ const ComingSoonSlider = ({ deviceType, actions, libraries, state }) => {
                       className="container-img"
                     >
                       <img
-                        alt="image"
                         className="cont-img-div"
                         borderRadius="lg"
                         width="130px"
@@ -161,7 +160,6 @@ const ComingSoonSlider = ({ deviceType, actions, libraries, state }) => {
                         lineHeight="22px"
                         transform="rotate3d(1, 1, 1,
                       324deg)"
-                        loading="lazy"
                       />
 
                     </Box>
