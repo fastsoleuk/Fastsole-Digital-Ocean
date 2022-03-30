@@ -162,6 +162,7 @@ const ComingSoonSlider = ({ deviceType, actions, libraries, state }) => {
                         transform="rotate3d(1, 1, 1,
                       324deg)"
                         loading="lazy"
+                        decoding="async"
                       />
 
                     </Box>

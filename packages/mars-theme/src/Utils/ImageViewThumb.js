@@ -29,6 +29,8 @@ const ImageViewThumb = ({ state, id }) => {
         srcSet={srcset}
         height="100%"
         width="100%"
+        loading="lazy"
+        decoding="async"
       />
     </AspectRatio>
   );

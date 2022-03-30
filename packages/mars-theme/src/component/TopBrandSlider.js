@@ -98,6 +98,7 @@ function TopBrandSlider({ deviceType, actions, libraries, state }) {
                       lineHeight="22px"
                       alt={item.title}
                       loading="lazy"
+                      decoding="async"
                     />
 
                     <Flex mt={2} alignItems="center">
