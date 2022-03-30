@@ -28,7 +28,6 @@ const FeaturedMedia = ({ state, id }) => {
         height="100%"
         width="100%"
         loading="lazy"
-        decoding="async"
       />
     </Container>
   );
