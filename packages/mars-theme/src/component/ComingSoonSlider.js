@@ -160,6 +160,8 @@ const ComingSoonSlider = ({ deviceType, actions, libraries, state }) => {
                         lineHeight="22px"
                         transform="rotate3d(1, 1, 1,
                       324deg)"
+                      decoding="async"
+                      loading="lazy"
                       />
 
                     </Box>
