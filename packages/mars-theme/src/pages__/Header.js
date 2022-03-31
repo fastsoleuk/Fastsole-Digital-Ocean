@@ -272,19 +272,19 @@ const Header = ({ state, libraries, actions }) => {
             fontFamily={"heading"}
             color={useColorModeValue("gray.800", "white")}
           >
-
             <Link
               link="/"
               // _focus={{ boxShadow: "none" }}
               // display={{ base: "block", md: "inline-flex" }}
             >
-              <Image
+              <img
                 // boxSize="50px"
                 objectFit="contain"
-                src={`/static/${Logo}`}
+                src={Logo}
                 width="100% !important"
                 height="30px !important"
                 alt={state.frontity.company_name + " logo"}
+                loading="lazy"
               />
             </Link>
           </Text>

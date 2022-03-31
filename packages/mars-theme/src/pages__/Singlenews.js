@@ -260,7 +260,7 @@ const Singlenews = ({ state, actions, libraries }) => {
               <Text
                 color="#3E485D"
                 fontFamily="Open Sans"
-                className="product-details ALclass"
+                className="product-details"
               >
                 {<Html2React html={newsData.content.rendered} />}
               </Text>

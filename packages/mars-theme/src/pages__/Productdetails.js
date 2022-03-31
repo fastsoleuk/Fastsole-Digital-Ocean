@@ -539,7 +539,7 @@ const Productdetails = ({ state, libraries, actions }) => {
 
                       <Box>
                         {seoData.main.releaseTimeDate != null &&
-                          seoData.main.releaseTimeDate != undefined ? (
+                        seoData.main.releaseTimeDate != undefined ? (
                           <Text color="#7887A5" fontSize="sm" mb="2">
                             Release Date:
                             {seoData.main.releaseTimeDate.date}
@@ -564,7 +564,7 @@ const Productdetails = ({ state, libraries, actions }) => {
                       </Box>
                       <Box h="fit-content">
                         {seoData.main.releaseTimeDate.styleCode != null &&
-                          seoData.main.releaseTimeDate.styleCode != undefined ? (
+                        seoData.main.releaseTimeDate.styleCode != undefined ? (
                           <Text color="#7887A5" fontSize="sm">
                             Style Code:
                             {seoData.main.releaseTimeDate.styleCode}
@@ -589,7 +589,7 @@ const Productdetails = ({ state, libraries, actions }) => {
                     >
                       {status}
                       {seoData.main.releaseTimeDate != null &&
-                        seoData.main.releaseTimeDate != undefined ? (
+                      seoData.main.releaseTimeDate != undefined ? (
                         <Text
                           color="#7887A5"
                           fontSize="sm"
@@ -623,7 +623,7 @@ const Productdetails = ({ state, libraries, actions }) => {
                         </Text>
                       } */}
                       {seoData.main.releaseTimeDate.styleCode != null &&
-                        seoData.main.releaseTimeDate.styleCode != undefined ? (
+                      seoData.main.releaseTimeDate.styleCode != undefined ? (
                         <Text color="#7887A5" mr="2" fontSize="sm" mb="2">
                           Style Code:
                           {seoData.main.releaseTimeDate.styleCode}
@@ -682,7 +682,7 @@ const Productdetails = ({ state, libraries, actions }) => {
                     <Text
                       color="#525F7A"
                       fontSize="sm"
-                    // fontWeight="semibold"
+                      // fontWeight="semibold"
                     >
                       Load {show ? "Less" : "More"}
                     </Text>
@@ -703,13 +703,12 @@ const Productdetails = ({ state, libraries, actions }) => {
                   <Text
                     color="#666666"
                     lineHeight={"26px"}
-                    className="product-details detpage"
+                    className="product-details"
                   >
                     <Html2React html={seoData.main.content} />
                   </Text>
                 )}
               </Box>
-                   
               {/* add card componenet here */}
               {seoData.main.releseInfo && (
                 <CardDetails

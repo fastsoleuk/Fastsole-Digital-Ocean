@@ -18,7 +18,7 @@ import { FaAngleRight, FaChevronRight } from "react-icons/fa";
 function Impressum({ state, libraries }) {
   const Html2React = libraries.html2react.Component;
   const impressumData = state.source.page[3495];
-  // console.log('hkhkhkhk',impressumData)
+  console.log('hkhkhkhk',impressumData)
   return (
     <>
       <Box mx={{ base: "6", md: "16", lg: "40" }} mb="10">

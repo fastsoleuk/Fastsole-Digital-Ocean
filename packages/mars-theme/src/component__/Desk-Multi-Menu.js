@@ -121,7 +121,7 @@ const DeskMultiMenus = ({ menus }) => {
       <ULSub id="submenu">
         {data.map((menu, index) => {
           const menuName = `submenu-${dept}-${menuIndex}-${index}`;
-          //console.log("greater", data);
+          console.log("greater", data);
 
           return (
             // <Link link="/ok/">
@@ -143,7 +143,7 @@ const DeskMultiMenus = ({ menus }) => {
   return (
     <HStack id="mainul" listStyleType=" none">
       {menus.map((menu, index) => {
-        //console.log("aagya", menu);
+        console.log("aagya", menu);
         const dept = 1;
         const menuName = `menu-${dept}-${index}`;
 

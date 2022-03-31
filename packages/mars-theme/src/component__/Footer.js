@@ -210,7 +210,7 @@ const Footer = ({ state, libraries, actions }) => {
 
                     {FooterBrandModel &&
                       FooterBrandModel.items.map((item) => {
-                        //console.log("finalfooter", item.url);
+                        console.log("finalfooter", item.url);
                         return (
                           item && (
                             <Link link={item.url}>
@@ -231,7 +231,7 @@ const Footer = ({ state, libraries, actions }) => {
                     <Heading fontSize="md">Quick Links</Heading>
                     {FooterQuickLinkModel &&
                       FooterQuickLinkModel.items.map((item) => {
-                        //console.log("finalfooter", item.url);
+                        console.log("finalfooter", item.url);
                         return (
                           item && (
                             <Link link={item.url}>
@@ -253,7 +253,7 @@ const Footer = ({ state, libraries, actions }) => {
 
                     {FooterNewsCategoryModel &&
                       FooterNewsCategoryModel.items.map((item) => {
-                        //console.log("finalfooter", item.url);
+                        console.log("finalfooter", item.url);
                         return (
                           item && (
                             <Link link={item.url}>
@@ -275,7 +275,7 @@ const Footer = ({ state, libraries, actions }) => {
 
                     {FooterSupportModel &&
                       FooterSupportModel.items.map((item) => {
-                        //console.log("finalfooter", item.url);
+                        console.log("finalfooter", item.url);
                         return (
                           item && (
                             <Link link={item.url}>

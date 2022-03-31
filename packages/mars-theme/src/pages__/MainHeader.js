@@ -1,4 +1,4 @@
-import React, { useState, useEffect, createContext, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Flex,
@@ -41,6 +41,8 @@ import {
   DrawerContent,
   DrawerCloseButton,
   Heading,
+  AlertTitle,
+  Alert,
   // Link
 } from "@chakra-ui/react";
 import { FaUser, FaSearch } from "react-icons/fa";
@@ -53,27 +55,13 @@ import {
 } from "@chakra-ui/icons";
 import Link from "@frontity/components/link";
 import Logo from "../images/logo.png";
-import MobileMultiMenus from "../component/Mobile-Multi-Menu";
-import DeskMultiMenus from "../component/Desk-Multi-Menu";
-import connect from "@frontity/connect";
-import MobileSearchModel from "../component/MobileSearchModel";
-import { SubMenu } from "../model/SubMenu";
 
-const Header = ({ state, libraries, actions }) => {
-  const parse = libraries.source.parse(state.router.link);
-  const searchQuery = parse.query["s"];
-
+export default function MainHeader() {
   const { isOpen, onToggle } = useDisclosure();
   const {
     isOpen: isOpenReportModal,
     onOpen: onOpenReportModal,
     onClose: onCloseReportModal,
-  } = useDisclosure();
-
-  const {
-    isOpen: isOpenModal,
-    onOpen: onOpenModal,
-    onClose: onCloseModal,
   } = useDisclosure();
 
   const {
@@ -83,29 +71,10 @@ const Header = ({ state, libraries, actions }) => {
   } = useDisclosure();
 
   const firstField = React.useRef();
-  const [inputValue, setinputValue] = useState(" ");
-  const [showValue, setshowValue] = useState("Search here.");
-  const [headerValue, setheaderValue] = useState(" ");
+  const [inputValue, setinputValue] = useState("");
+  const [showValue, setshowValue] = useState("Search here");
 
   // var inputValue = "";
-  const [dataLoaded, setDataLoaded] = useState(false);
-
-  // useEffect(() => {
-  //   // fetchData();
-  // }, [dataLoaded]); //update by Santosh
-
-  // const fetchData = async () => {
-  //   const response = await libraries.source.api.get({
-  //     endpoint: `/wl/v1/menu-items`,
-  //   });
-
-  //   const postData = await response.json();
-  //   actions.headerMenu.toggleLoading();
-  //   actions.headerMenu.updatePostData(postData);
-
-  //   setheaderValue(state.headerMenu.postData);
-  //   console.log("header menu", headerValue);
-  // };
 
   const brandList = [
     "nike",
@@ -129,115 +98,17 @@ const Header = ({ state, libraries, actions }) => {
     "convoy",
     "Adida Trainer",
   ];
-  // const searchSlug = `/searchresult-for/${inputValue}`;
-  // console.log("heademenuval", menus[2]);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const searchSlug = `/searchresult-for/${inputValue}`;
+  console.log("always", inputValue);
 
-    // Get the input's value
-    const searchString = inputValue.trim();
-    // inputRef.current.value;
-    console.log("checksearch=", searchString);
-
-    // If the typed search string is not empty
-    // Better to trim write spaces as well
-    if (searchString.trim().length > 0) {
-      // Let's go search for blogs that match the search string
-
-      let finalString = searchString.split(" ").join("+");
-      actions.router.set(`/?s=${finalString.toLowerCase()}`);
-      // inputRef.current.value = "";
-      setinputValue("");
-      setshowValue("Search here");
-
-      // Scroll the page to the top
-      window.scrollTo(0, 0);
-
-      // Close the search modal
-      // closeSearchModal();
-    }
+  const clickSearch = () => {
+    let data = $("#input").val();
+    alert(data);
   };
-
-  // levele wise menu code
-  const itemsMenu = SubMenu.items;
-  // state.source.get(`/menu/${state.theme.menuUrl}/`).items;
-  const menuReleaseDate = [];
-  itemsMenu.map((item) => {
-    if (item.ID === 27490 && item.post_name === "brands") {
-      menuReleaseDate.push(item.child_items);
-    }
-  });
-  // console.log("items data menu = ", menuReleaseDate);
-
-  var i = 0;
-  var perentMenu = [];
-  menuReleaseDate &&
-    menuReleaseDate[0].map((data) => {
-      var termId = data.ID;
-      var slug = data.url;
-      var name = data.title;
-      if (data.child_items !== undefined) {
-        var j = 0;
-        var subMenu = [];
-        data.child_items.map((item) => {
-          var cId = item.ID;
-          var cname = item.title;
-          var cslug = item.url;
-
-          if (item.child_items !== undefined) {
-            var subMenuTemp = [];
-            var k = 0;
-            item.child_items.map((citems) => {
-              var ccId = citems.ID;
-              var ccname = citems.title;
-              var ccslug = citems.url;
-              subMenuTemp[k] = {
-                label: ccname,
-                href: ccslug,
-              };
-
-              k++;
-            });
-
-            subMenu[j] = {
-              label: cname,
-              href: cslug,
-              submenu: subMenuTemp,
-            };
-          } else {
-            subMenu[j] = {
-              label: cname,
-              href: cslug,
-            };
-          }
-
-          j++;
-        });
-
-        var tempArr = {
-          label: name,
-          href: slug,
-          submenu: subMenu,
-        };
-      } else {
-        var tempArr = {
-          label: name,
-          href: slug,
-        };
-      }
-
-      perentMenu.push(tempArr);
-      i++;
-    });
-
-  menus[1].submenu = perentMenu;
-
-  console.log("menu data :", menus[2]);
 
   return (
     <Box
-      id="sticky-header"
       px={{ base: "6", md: "16", lg: "40" }}
       boxShadow={{ base: "lg", md: "none" }}
     >
@@ -254,13 +125,9 @@ const Header = ({ state, libraries, actions }) => {
           display={{ base: "flex", md: "none" }}
         >
           <IconButton
-            onClick={!isOpendrawer ? onOpendrawer : onClosedrawer}
+            onClick={onOpendrawer}
             icon={
-              isOpendrawer ? (
-                <CloseIcon w={3} h={3} />
-              ) : (
-                <HamburgerIcon w={5} h={5} />
-              )
+              isOpen ? <CloseIcon w={3} h={3} /> : <HamburgerIcon w={5} h={5} />
             }
             variant={"ghost"}
             aria-label={"Toggle Navigation"}
@@ -272,19 +139,17 @@ const Header = ({ state, libraries, actions }) => {
             fontFamily={"heading"}
             color={useColorModeValue("gray.800", "white")}
           >
-
             <Link
               link="/"
               // _focus={{ boxShadow: "none" }}
               // display={{ base: "block", md: "inline-flex" }}
             >
-              <Image
+              <Img
                 // boxSize="50px"
                 objectFit="contain"
-                src={`/static/${Logo}`}
-                width="100% !important"
-                height="30px !important"
-                alt={state.frontity.company_name + " logo"}
+                src={Logo}
+                w="100% !important"
+                h="30px !important"
               />
             </Link>
           </Text>
@@ -329,6 +194,7 @@ const Header = ({ state, libraries, actions }) => {
                         <ModalCloseButton />
                         <ModalBody py={12}>
                           <InputGroup
+                            // placeholder="ok"
                             display={{ base: "block", md: "none" }}
                             color="#9DA7BE"
                             bg="#F2F2F2"
@@ -336,24 +202,43 @@ const Header = ({ state, libraries, actions }) => {
                             <InputRightElement
                               pointerEvents="visibleFill"
                               children={
+                                <Link link={searchSlug}>
+                                  <FaSearch
+                                    onClick={() => {
+                                      setshowValue("Search here");
+                                    }}
+                                    color="#3E485D"
+                                  />
+                                </Link>
                                 // <Link link={searchSlug}>
-                                <FaSearch
-                                  onClick={(e) => handleSubmit(e)}
-                                  color="#3E485D"
-                                />
+                                //   {" "}
+                                //   <Icon
+                                //     as={FaSearch}
+                                //     color="#3E485D"
+                                //     boxSize="5"
+                                //     color={"black"}
+                                //     // onClick={() => onCloseReportModal}
+                                //   />
                                 // </Link>
-                                // <FaSearch color="#3E485D" />
                               }
                             />
                             <Input
                               // id="input"
                               type="text"
                               placeholder={showValue}
-                              value={inputValue}
                               onChange={(event) => {
                                 event.preventDefault();
                                 setshowValue(event.target.value);
-                                setinputValue(event.target.value);
+                                // console.log(event.target[0].value);
+
+                                // let result = event.target.value.replace(" ", "-");
+                                // var demo = event.target.value;
+
+                                let result = event.target.value
+                                  .split(" ")
+                                  .join("-");
+
+                                setinputValue(result);
                               }}
                               minW="100%"
                               w="auto"
@@ -364,10 +249,7 @@ const Header = ({ state, libraries, actions }) => {
 
                           <HStack
                             flexDirection={{ base: "column", md: "row" }}
-                            alignItems={{
-                              base: "flex-start",
-                              md: "baseline",
-                            }}
+                            alignItems={{ base: "flex-start", md: "baseline" }}
                             mt={4}
                           >
                             <Text
@@ -382,13 +264,16 @@ const Header = ({ state, libraries, actions }) => {
                             <Wrap direction="row" ml="0px !important">
                               {brandList.map((data, index) => {
                                 return (
-                                  <WrapItem key={"Headersk1-" + index}>
+                                  <WrapItem>
                                     <Center
                                       onClick={() => {
-                                        // onToggle;
-                                        onCloseReportModal();
+                                        // console.log("inputdata");
+                                        let result = data.replace(" ", "-");
                                         setshowValue(data);
-                                        setinputValue(data);
+
+                                        setinputValue(result);
+                                        // inputValue = data;
+                                        console.log(inputValue);
                                       }}
                                       bg="#F3F4F7"
                                       color="#666666"
@@ -397,6 +282,7 @@ const Header = ({ state, libraries, actions }) => {
                                       py={1}
                                       borderRadius="md"
                                       borderRadius="md"
+                                      cursor="default"
                                     >
                                       {data}
                                     </Center>
@@ -579,33 +465,49 @@ const Header = ({ state, libraries, actions }) => {
                     fontSize="xs"
                     color="#9DA7BE"
                     placeholder={showValue}
-                    value={inputValue}
+                    // value={showValue}
                     onChange={(event) => {
                       event.preventDefault();
                       setshowValue(event.target.value);
-                      setinputValue(event.target.value);
+                      // console.log(event.target[0].value);
+
+                      // let result = event.target.value.replace(" ", "-");
+                      // var demo = event.target.value;
+
+                      let result = event.target.value.split(" ").join("-");
+
+                      setinputValue(result);
                     }}
                     variant="unstyled"
                     w={{ md: "50", lg: "60" }}
                   />
                 </Center>
                 <Center>
-                  {/* <Link link={searchSlug}> */}
-                  <Button
-                    onClick={(e) => handleSubmit(e)}
-                    bg="#3E485D"
-                    colorScheme="#3E485D"
-                    color="#FFFFFF"
-                    variant="solid"
-                    h="50"
-                    w="32"
-                    _focus={"outline:none;"}
-                  >
-                    <Text fontWeight="500" fontSize="xs">
-                      Find Item
-                    </Text>
-                  </Button>
-                  {/* </Link> */}
+                  <Link link={searchSlug}>
+                    <Button
+                      bg="#3E485D"
+                      colorScheme="#3E485D"
+                      color="#FFFFFF"
+                      variant="solid"
+                      h="50"
+                      w="32"
+                      _focus={"outline:none;"}
+                      // onClick={() => {
+                      //   alert("demo");
+                      // }}
+                    >
+                      <Text
+                        fontWeight="500"
+                        fontSize="xs"
+                        onClick={() => {
+                          setshowValue("Search here");
+                          console.log("clear", showValue);
+                        }}
+                      >
+                        Find Item
+                      </Text>
+                    </Button>
+                  </Link>
                 </Center>
               </InputGroup>
             </Box>
@@ -618,12 +520,7 @@ const Header = ({ state, libraries, actions }) => {
                 as={FaSearch}
                 boxSize="5"
                 color={"black"}
-                onClick={onOpenModal}
-              />
-              <MobileSearchModel
-                onCloseModal={onCloseModal}
-                isOpenModal={isOpenModal}
-                // handleSubmit={(e) => handleSubmit(e)}
+                onClick={onOpenReportModal}
               />
             </Text>
           </HStack>
@@ -635,165 +532,252 @@ const Header = ({ state, libraries, actions }) => {
         display={{ base: "none", md: "flex" }}
         justifyContent="space-around"
       >
-        <DeskMultiMenus menus={menus} />
-        {/* <DesktopNav /> */}
+        <DesktopNav />
       </Flex>
 
       <Collapse in={isOpen} animateOpacity>
-        <MobileNav
-          isOpendrawer={isOpendrawer}
-          onClosedrawer={onClosedrawer}
-          onToggleDrawer
-        />
+        <MobileNav isOpendrawer={isOpendrawer} onClosedrawer={onClosedrawer} />
       </Collapse>
     </Box>
   );
-};
+}
 
-export default connect(Header);
-export const DrawerToggle = React.createContext();
-
-export const MobileNav = ({
-  isOpendrawer,
-  onClosedrawer,
-  onToggleDrawer,
-  state,
-}) => {
-  var data = "oka";
-
+const DesktopNav = () => {
+  const linkColor = useColorModeValue("gray.600", "gray.200");
+  const linkHoverColor = useColorModeValue("gray.800", "white");
+  const popoverContentBgColor = useColorModeValue("white", "gray.800");
+  const { isOpen, onToggle } = useDisclosure();
   return (
-    <DrawerToggle.Provider value={onClosedrawer}>
-      <Drawer
-        placement="left"
-        isOpen={isOpendrawer}
-        onClose={onClosedrawer}
-        w="200px"
-      >
-        <DrawerOverlay />
-        <DrawerContent>
-          <DrawerCloseButton />
-          <DrawerHeader borderBottomWidth="1px">Fastsole Menu</DrawerHeader>
+    <Stack direction={"row"} spacing={4} color="#3E485D">
+      {NAV_ITEMS.map((navItem) => (
+        <Box key={navItem.label}>
+          <Popover trigger={"hover"} placement={"bottom-start"}>
+            <PopoverTrigger>
+              <Box fontSize="sm" fontWeight="600">
+                <Link
+                  p={2}
+                  link={navItem.href ?? "#"}
+                  color={linkColor}
+                  _hover={{
+                    textDecoration: "none",
+                    color: linkHoverColor,
+                  }}
+                >
+                  {navItem.label}
+                </Link>
+              </Box>
+            </PopoverTrigger>
 
-          <DrawerBody>
-            <Stack
-              bg={useColorModeValue("white", "gray.800")}
-              p={4}
-              display={{ md: "none" }}
-            >
-              <MobileMultiMenus menus={menus} />
-            </Stack>
-          </DrawerBody>
-        </DrawerContent>
-      </Drawer>
-    </DrawerToggle.Provider>
+            {navItem.children && (
+              <PopoverContent
+                border={0}
+                boxShadow={"xl"}
+                bg={popoverContentBgColor}
+                p={4}
+                rounded={"xl"}
+                minW={"sm"}
+              >
+                <PopoverBody>
+                  <Stack>
+                    {navItem.children.map((child) => (
+                      <DesktopSubNav key={child.label} {...child} />
+                    ))}
+                  </Stack>
+                </PopoverBody>
+              </PopoverContent>
+            )}
+          </Popover>
+        </Box>
+      ))}
+    </Stack>
   );
 };
 
-const menus = [
+const DesktopSubNav = ({ label, href, subLabel }) => {
+  return (
+    <Link
+      link={href}
+      role={"group"}
+      display={"block"}
+      p={2}
+      rounded={"md"}
+      _hover={{ bg: useColorModeValue("pink.50", "gray.900") }}
+    >
+      <Stack direction={"row"} align={"center"}>
+        <Box>
+          <Text
+            fontSize="sm"
+            fontWeight="600"
+            transition={"all .3s ease"}
+            _groupHover={{ color: "pink.400" }}
+          >
+            {label}
+          </Text>
+          {/* <Text fontSize={'sm'}>{subLabel}</Text> */}
+        </Box>
+        <Flex
+          transition={"all .3s ease"}
+          transform={"translateX(-10px)"}
+          opacity={0}
+          _groupHover={{ opacity: "100%", transform: "translateX(0)" }}
+          justify={"flex-end"}
+          align={"center"}
+          flex={1}
+        >
+          <Icon color={"pink.400"} w={5} h={5} as={ChevronRightIcon} />
+        </Flex>
+      </Stack>
+    </Link>
+  );
+};
+
+const MobileNav = ({ isOpendrawer, onClosedrawer }) => {
+  return (
+    <Drawer placement="left" isOpen={isOpendrawer} onClose={onClosedrawer}>
+      <DrawerOverlay />
+      <DrawerContent>
+        <DrawerCloseButton />
+        <DrawerBody>
+          <Text
+            px={4}
+            py={6}
+            fontSize="sm"
+            fontWeight="400"
+            display={{ md: "none" }}
+          >
+            {NAV_ITEMS.map((navItem) => (
+              <MobileNavItem
+                key={navItem.label}
+                {...navItem}
+                onClosedrawer={onClosedrawer}
+              />
+            ))}
+          </Text>
+        </DrawerBody>
+      </DrawerContent>
+    </Drawer>
+  );
+};
+
+const MobileNavItem = ({ label, children, href, onClosedrawer }) => {
+  const { isOpen, onToggle } = useDisclosure();
+
+  return (
+    <Stack onClick={children && onToggle}>
+      <Flex
+        py={2}
+        justify={"space-between"}
+        align={"center"}
+        _hover={{
+          textDecoration: "none",
+        }}
+      >
+        <Link link={href}>
+          {
+            <Text
+              onClick={onClosedrawer}
+              fontWeight={600}
+              color={useColorModeValue("gray.600", "gray.200")}
+            >
+              {label}
+            </Text>
+          }
+        </Link>
+
+        {children && (
+          <Link>
+            <Icon
+              as={ChevronDownIcon}
+              transition={"all .25s ease-in-out"}
+              transform={isOpen ? "rotate(180deg)" : ""}
+              w={6}
+              h={6}
+            />
+          </Link>
+        )}
+      </Flex>
+
+      <Collapse in={isOpen} animateOpacity style={{ marginTop: "0!important" }}>
+        <Stack
+          // mt={2}
+          pl={4}
+          borderLeft={1}
+          borderStyle={"solid"}
+          borderColor={useColorModeValue("gray.200", "gray.700")}
+          align={"start"}
+          fontSize="sm"
+          fontWeight="600"
+        >
+          {children &&
+            children.map((child) => (
+              <Link key={child.label} py={2} link={child.href}>
+                <Text onClick={onClosedrawer}> {child.label}</Text>
+              </Link>
+            ))}
+        </Stack>
+      </Collapse>
+    </Stack>
+  );
+};
+
+const NAV_ITEMS = [
   {
-    label: "Home",
+    label: "Browse all Brand",
     href: "/",
+    children: [
+      {
+        label: "Explore Design Work",
+        href: "/sneaker-news",
+        // grandchildren: [
+        //     {
+        //         label: 'all',
+        //         href: '#',
+        //     },
+        //     {
+        //         label: 'new',
+        //         href: '#',
+        //     },
+        // ],
+      },
+      {
+        label: "New & Noteworthy",
+        href: "#",
+      },
+    ],
+  },
+  {
+    label: "About us",
+    href: "/about",
+    children: [
+      {
+        label: "Job Board",
+        href: "#",
+      },
+      {
+        label: "Freelance Projects",
+        href: "#",
+      },
+    ],
+  },
+  {
+    label: " Release Dates",
+    href: "/sneaker-release-dates",
+  },
+  {
+    label: "Product",
+    href: "/product-salepage/",
   },
 
-  {
-    label: "Release Dates",
-    href: "/sneaker-release-dates/",
-    submenu: [],
-    // [
-    // {
-    //   label: "Sub Menu 1",
-    //   href: "/submenu1",
-    //   submenu: [
-    //     {
-    //       label: "Boom 1",
-    //       href: "/boom1",
-    //     },
-    //     {
-    //       label: "Boom 2",
-    //       href: "/boom2",
-    //     },
-    //   ],
-    // },
-    // {
-    //   label: "Sub Menu 2",
-    //   href: "/submenu2",
-    //   submenu: [
-    //     {
-    //       label: "Deep 1",
-    //       href: "/deep1",
-    //     },
-    //     {
-    //       label: "Deep 2",
-    //       href: "/deep2",
-    //       // submenu: [
-    //       //   {
-    //       //     label: "Lorem 1",
-    //       //     href: '#',
-    //       //   },
-    //       //   {
-    //       //     label: "Lorem 2",
-    //       //     href: '#',
-    //       //     submenu: [
-    //       //       {
-    //       //         label: "Super Deep",
-    //       //         href: '#',
-    //       //       }
-    //       //     ]
-    //       //   }
-    //       // ]
-    //     },
-    //   ],
-    // },
-    // {
-    //   label: "Sub Menu 3",
-    //   href: "/submneu3",
-    // },
-    // {
-    //   label: "Sub Menu 4",
-    //   href: "sybmenu4",
-    //   submenu: [
-    //     {
-    //       label: "Last 1",
-    //       href: "/last1",
-    //     },
-    //     {
-    //       label: "Last 2",
-    //       href: "/last2",
-    //     },
-    //     {
-    //       label: "Last 3",
-    //       href: "/last3",
-    //     },
-    //   ],
-    // },
-    // ],
-  },
-  // {
-  //   label: "Product",
-  //   href: "/product-salepage/",
-  // },
   {
     label: "News",
     href: "/sneaker-news",
   },
-  {
-    label: "About us",
-    href: "/about/",
-    // submenu: [
-    //   {
-    //     label: "About us",
-    //     href: "#",
-    //   },
-    //   {
-    //     label: "About us",
-    //     href: "#",
-    //   }
-    // ]
-  },
+
   {
     label: "Offer & Discount",
     href: "/sneaker-news/category/offer-discount",
   },
+
   {
     label: "Contact us",
     href: "/contact",
