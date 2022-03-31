@@ -281,7 +281,8 @@ const Header = ({ state, libraries, actions }) => {
               <Image
                 // boxSize="50px"
                 objectFit="contain"
-                src={`/static/${Logo}`}
+                //src={`/static/${Logo}`}
+                src={Logo}
                 width="100% !important"
                 height="30px !important"
                 alt={state.frontity.company_name + " logo"}
