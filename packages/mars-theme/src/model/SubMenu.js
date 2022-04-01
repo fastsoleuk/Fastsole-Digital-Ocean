@@ -2750,7 +2750,7 @@ export const SubMenu = {
       object: "category",
       type: "taxonomy",
       type_label: "Category",
-      url: "https://fastsole.co.uk/sneaker-news/category/offer-discount/",
+      url: "https://version2.fastsole.co.uk/sneaker-news/category/offer-discount/",
       title: "Offer &amp; Discount",
       target: "",
       attr_title: "",
