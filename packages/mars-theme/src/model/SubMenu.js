@@ -2218,7 +2218,7 @@ export const SubMenu = {
           object: "department",
           type: "taxonomy",
           type_label: "Department",
-          url: "https://version2.fastsole.co.uk/sneaker-release-dates/brands/puma/",
+          url: "https://fastsole.co.uk/sneaker-release-dates/brands/puma/",
           title: "Puma",
           target: "",
           attr_title: "",

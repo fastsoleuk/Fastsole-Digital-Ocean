@@ -389,7 +389,7 @@ function Home({ state, actions, libraries }) {
                     <Box w="max-content">
                       <Link link={item.link}>
                         <Text color="red">
-                          Read more
+                          Read more{" "}
                           <Icon as={FaChevronRight} boxSize="2" color={"red"} />
                         </Text>
                       </Link>
@@ -766,148 +766,127 @@ function Home({ state, actions, libraries }) {
           <Grid
             templateColumns={{ md: "3fr 3fr  ", sm: "repeat(2, 1fr)" }}
             textColor="white"
-            gap={4}
+            gap={6}
+            mx="8px !important"
+            mt="12px !important"
           >
             {data.slice(0, 1).map(({ type, id }) => {
-              const item = state.source[type][id];
-
+              const items = state.source[type][id];
+              const date = dayjs(items.date_gmt).format("DD MMMM YYYY");
               return (
-                item && (
-                  <Box>
-                    <Link link={item.link}>
-                      <ImageViewFeatured id={item.featured_media} />
+                <Box>
+                  <div id="latestnews-div">
+                    <Link link={items.link}>
+                      <FeaturedMedia id={items.featured_media} />
                     </Link>
+                  </div>
+                  <Link link={items.link}>
+                    <Heading
+                      as="h3"
+                      mt={6}
+                      _hover={{ textDecoration: "none" }}
+                      _focus={{ boxShadow: "none" }}
+                      // fontSize={{ base: "sm", md: "sm", lg: "xl" }}
+                      fontSize={{ base: "md", md: "lg", lg: "xl", xl: "2xl" }}
+                      color="#3E485D"
+                      lineHeight="normal"
+                      mb="10px"
+                      noOfLines={2}
+                    >
+                      {/* {items.title.rendered} */}
+                      {<Html2React html={items.title.rendered} />}
+                    </Heading>
+                  </Link>
 
-                    <Link link={item.link}>
-                      <Heading
-                        as="h3"
-                        mt={6}
-                        _hover={{ textDecoration: "none" }}
-                        _focus={{ boxShadow: "none" }}
-                        fontSize={{ base: "md", md: "md", lg: "xl", xl: "2xl" }}
-                        fontWeight="bold"
-                        color="#3E485D"
-                        lineHeight="normal"
-                        mb="10px"
-                      >
-                        {<Html2React html={item.title.rendered} />}
-                      </Heading>
-                    </Link>
+                  <Box
+                    display={{ base: "flex", md: "grid" }}
+                    justifyContent="space-between"
+                  >
                     <Text
-                      color={"#3E485D"}
+                      mb="6px"
+                      color={"#9DA7BE"}
                       display="flex"
                       alignItems="flex-end"
-                      fontSize={{ base: "md", md: "md", lg: "sm", xl: "md" }}
+                      fontSize="sm"
                     >
-                      <Html2React
-                        html={`${item.excerpt.rendered.substring(0, 100)}  ...`}
-                      />
+                      {date}
                     </Text>
-                    <Box w="max-content">
-                      <Link link={item.link}>
-                        <Text color="red">
-                          Read more
-                          <Icon as={FaChevronRight} boxSize="2" color={"red"} />
-                        </Text>
-                      </Link>
-                    </Box>
+
+                    <Link link={items.link}>
+                      <Text color="red" fontSize="sm">
+                        Read More{" "}
+                        <Icon as={FaAngleRight} boxSize="4" color={"#F12026"} />
+                      </Text>
+                    </Link>
                   </Box>
-                )
+                </Box>
               );
             })}
 
-            <Box display="flex">
-              <VStack alignItems="normal" justifyContent={"space-between"}>
+            <Box>
               {data.slice(2, 5).map(({ type, id }) => {
                 const items = state.source[type][id];
                 const date = dayjs(items.date_gmt).format("DD MMMM YYYY");
                 return (
+                  <Box
+                    display={{ md: "flex" }}
+                    id="nthchild-div"
+                    mb={{ base: "25px", md: "15px", lg: "25px" }}
+                  >
                     <Box
-                      display={{ md: "flex" }}
-                      // mb="5px "
-                      alignItems="center"
-                      h={"100%"}
+                      flexShrink={0}
+                      width={{ base: "100%", md: "50%", lg: "50%", xl: "46%" }}
+                      height={{
+                        base: "100%",
+                        md: "137px",
+                        lg: "137",
+                        xl: "137px",
+                      }}
                     >
+                      <Link link={items.link}>
+                        {/* <motion.div whileHover={{ scale: 1.1 }} id="imghgt" > */}
+                        <ImageView id={items.featured_media} />
+                        {/* </motion.div> */}
+                      </Link>
+                    </Box>
+                    <Box mt={{ base: 4, md: 0 }} ml={{ md: 6 }}>
+                      <Link link={items.link}>
+                        <Heading
+                          as="h3"
+                          // mt={1}
+                          display="block"
+                          fontSize={{ base: "md", md: "sm", lg: "md" }}
+                          color="#3E485D"
+                          mb="6px"
+                          lineHeight="normal"
+                          noOfLines={2}
+                        >
+                          {<Html2React html={items.title.rendered} />}
+                          {/* {items.title.rendered} */}
+                        </Heading>
+                      </Link>
                       <Box
-                        flexShrink={0}
-                        width={{
-                          base: "100%",
-                          md: "50%",
-                          lg: "50%",
-                          xl: "47%",
-                        }}
-                        height={"95%"}
-                        borderRadius={"5px"}
-                        border={"1px solid #C2C8D6"}
+                        display={{ base: "flex", md: "grid" }}
+                        justifyContent="space-between"
                       >
-                        <Link link={items.link} id="img-div2nd-height">
-                          {" "}
-                          <ImageViewFeatured id={items.featured_media} />
-                        </Link>
-                      </Box>
-                      <Box mt={{ base: 4, md: 0 }} ml={{ md: 4 }}>
+                        <Text mb="6px" color="#9DA7BE" fontSize="sm">
+                          {date}
+                        </Text>
                         <Link link={items.link}>
-                          <Heading
-                            as="h3"
-                            display="block"
-                            fontSize={{
-                              base: "md",
-                              md: "md",
-                              lg: "sm",
-                              xl: "lg",
-                            }}
-                            color="#3E485D"
-                            lineHeight="normal"
-                            noOfLines={2}
-                          >
-                            {<Html2React html={items.title.rendered} />}
-                          </Heading>
-                        </Link>
-                        <Box>
-                          {" "}
-                          <Text
-                            as="span"
-                            color="#3E485D"
-                            fontSize={{
-                              base: "md",
-                              md: "md",
-                              lg: "sm",
-                              xl: "md",
-                            }}
-                            lineHeight="normal"
-                            mt="2px"
-                            noOfLines={2}
-                          >
-                            {
-                              <Html2React
-                                html={`${items.excerpt.rendered.substring(
-                                  0,
-                                  50
-                                )}  ...`}
-                              />
-                            }
+                          <Text color="red" fontSize="sm">
+                            Read More{" "}
+                            <Icon
+                              as={FaAngleRight}
+                              boxSize="4"
+                              color={"#F12026"}
+                            />
                           </Text>
-                        </Box>
-
-                        <Flex mt="2px" alignItems="center">
-                          <Box w="max-content">
-                            <Link link={items.link}>
-                              <Text color="red">
-                                Read more.....{" "}
-                                <Icon
-                                  as={FaChevronRight}
-                                  boxSize="2"
-                                  color={"red"}
-                                />
-                              </Text>
-                            </Link>
-                          </Box>
-                        </Flex>
+                        </Link>
                       </Box>
                     </Box>
-                  );
+                  </Box>
+                );
               })}
-              </VStack>
             </Box>
           </Grid>
           {/* view from mobile latest news */}
